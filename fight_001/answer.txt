@@ -1,0 +1,75 @@
+private static boolean findPath(int[][] matrix) {
+        // Variables
+        int nextNum = 2;
+        int row = -1;
+        int col = -1;
+        boolean canGoLeft = true,
+                canGoRight = true,
+                canGoUp = true,
+                canGoDown = true;
+
+        // Find start row and column (where the element in the matrix equals 1)
+        for(int i = 0; i < matrix.length; i++ )
+        {
+            for(int j = 0; j < matrix[0].length; j++)
+            {
+                if(matrix[i][j] == 1)
+                {
+                    row = i;
+                    col = j;
+                }
+                System.out.println(matrix[i][j]);
+            }
+            System.out.println();
+        }
+
+        // Loop until all numbers in sequence visited or found that it is impossible
+        // to visit all the numbers in sequence
+        while(nextNum <= matrix.length * matrix[0].length)
+        {
+            // Reset
+            canGoLeft = canGoRight = canGoDown = canGoUp = true;
+
+            // Determine which directions are possible
+            if(row - 1 < 0)
+                canGoUp= false;
+            if(row + 1 == matrix.length)
+                canGoDown = false;
+            if(col - 1 < 0)
+                canGoLeft = false;
+            if(col + 1 == matrix[0].length)
+                canGoRight = false;
+
+            // Check up for next number in sequence
+            if(canGoUp && nextNum == matrix[row - 1][col])
+            {
+                nextNum++;
+                row--;
+            }
+            // Check down for next number in sequence
+            else if(canGoDown && nextNum == matrix[row + 1][col])
+            {
+                nextNum++;
+                row++;
+            }
+            // Check left for next number in sequence
+            else if(canGoLeft && nextNum == matrix[row][col - 1])
+            {
+                nextNum++;
+                col--;
+            }
+            // Check right for next number in sequence
+            else if(canGoRight && nextNum == matrix[row][col + 1])
+            {
+                nextNum++;
+                col++;
+            }
+            // Failed
+            else
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
