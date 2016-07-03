@@ -1,0 +1,15 @@
+boolean crossroads(int[] road1, int[] road2, int crossTime) {
+  int j = 0;
+  for (int i = 0; i < road1.length; i++) {  
+    while (j < road2.length && road2[j] < road1[i]) {
+      if (road2[j] + crossTime > road1[i]) {
+        return true;
+      }
+      j++;
+    }
+    if (j < road2.length && road1[i] + crossTime > road2[j]) {
+      return true;
+    }  
+  }
+  return false;
+}
